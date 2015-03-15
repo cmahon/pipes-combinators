@@ -1,7 +1,6 @@
 module Pipes.Combinators where
 
 import Control.Monad
-import Data.Monoid
 import Pipes
 import Pipes.Internal
 import Pipes.Prelude as P
@@ -89,7 +88,7 @@ test = runEffect $
                [ P.map (+1)
                , cat
                , P.map (+3)
-               , mempty
+               , drain
                , replicateM_ 2 (await >>= yield) 
                , forever (await >>= replicateM_ 2 . yield)
                ]
